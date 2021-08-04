@@ -47,7 +47,8 @@ def get_media_a_m():
 # media_acerto_materia = media_acerto_materia.set_index('Correção')
 media_acerto_materia = pd.read_pickle('relatorios/dados/docentes/media_acerto_materia.pkl')
 st.markdown("**Gráfico da porcentagem média de acerto em cada matéria**")
-st.bar_chart(data=media_acerto_materia)
+st.bar_chart(data=media_acerto_materia["Média"])
+
 st.write("Passando o mouse por cima do gráfico você pode identificar qual é a matéria e nota referentes a cada barra.")
 
 
