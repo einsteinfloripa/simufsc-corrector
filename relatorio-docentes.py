@@ -16,7 +16,7 @@ st.header("**1. Dados sobre a Prova Geral**")
 st.subheader("**1.1 Dados sobre as Questões Objetivas**")
 
 # media e % das objetivas 
-media_acerto_materia = pd.read_pickle('relatorios\dados\docentes\media_acerto_materia.pkl')
+media_acerto_materia = pd.read_pickle('relatorios/dados/docentes/media_acerto_materia.pkl')
 #media_acertos_obj = media_acerto_materia['Correção'].mean()
 
 #st.write("A média geral de acertos da prova objetiva foi ", str(round(media_acertos_obj, 3)*100)+'%')
@@ -35,7 +35,7 @@ st.write(pd.DataFrame({
 
 
 def get_media_a_m():
-    path = 'relatorios\dados\docentes\media_acerto_materia.pkl'
+    path = 'relatorios/dados/docentes/media_acerto_materia.pkl'
     return pd.read_pickle(path)
  
 # gráfico com a média de acerto de cada matéria
@@ -45,7 +45,7 @@ def get_media_a_m():
 
 # media_acerto_materia = media_acerto_materia.reset_index()
 # media_acerto_materia = media_acerto_materia.set_index('Correção')
-media_acerto_materia = pd.read_pickle('relatorios\dados\docentes\media_acerto_materia.pkl')
+media_acerto_materia = pd.read_pickle('relatorios/dados/docentes/media_acerto_materia.pkl')
 st.markdown("**Gráfico da porcentagem média de acerto em cada matéria**")
 st.bar_chart(data=media_acerto_materia)
 st.write("Passando o mouse por cima do gráfico você pode identificar qual é a matéria e nota referentes a cada barra.")
@@ -64,7 +64,7 @@ st.subheader("**1.2 Dados sobre a Redação**")
 
 # tabela com a colocação dos alunos
 
-colocacao = pd.read_pickle('relatorios\dados\docentes\colocacao.pkl')
+colocacao = pd.read_pickle('relatorios/dados/docentes/colocacao.pkl')
 st.subheader("**1.3   Colocação dos alunos do Einstein**")
 colocacao.set_index('Colocação',inplace=True)
 st.write(pd.DataFrame({
@@ -99,7 +99,7 @@ st.write(pd.DataFrame({
 
 # todas as questões separadas por matéria
 # #  tem o total de acertos, total de alunos que responderam e média de acerto
-media_acerto_questao = pd.read_pickle('relatorios\dados\docentes\media_acerto_questao.pkl')
+media_acerto_questao = pd.read_pickle('relatorios/dados/docentes/media_acerto_questao.pkl')
 
 st.subheader("**2.1   Média de acertos por questao**")
 st.write("Nesta seção são discretizados os acertos por questão")
@@ -131,7 +131,7 @@ st.write("Dependendo das pontuações das questões, pode ser que o gráfico apr
 # #  tem o total de acertos, total de alunos que responderam e média de acerto
 
 def get_media_p_a():
-    path = 'relatorios\dados\docentes\media_por_assunto.pkl'
+    path = 'relatorios/dados/docentes/media_por_assunto.pkl'
     return pd.read_pickle(path)
 media_por_assunto = get_media_p_a()
 # print(media_por_assunto)
@@ -153,7 +153,7 @@ st.write(pd.DataFrame({
 
 
 # analise dos acertos por dificuldade
-media_por_dificuldade = pd.read_pickle('relatorios\dados\docentes\media_por_dificuldade.pkl')
+media_por_dificuldade = pd.read_pickle('relatorios/dados/docentes/media_por_dificuldade.pkl')
 
 st.subheader("**2.3   Média de acertos por dificuldade**")
 
