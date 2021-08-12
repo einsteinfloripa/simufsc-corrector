@@ -195,7 +195,7 @@ st.subheader("**2.4   Distribuição das respostas dos alunos**")
 
 st.write("Aqui você encontra a distibuição de vezes que os alunos assinalaram as alternativas. Por exemplo, 14/60 significa que dos 60 alunos que responderam a questão, 14 julgaram a alternativa como correta")
 
-qntd_assinaladas = pd.read_pickle("relatorios\dados\docentes\qntd_assinaladas.pkl")
+qntd_assinaladas = pd.read_pickle("relatorios/dados/docentes/qntd_assinaladas.pkl")
 qntd_assinaladas.reset_index(inplace=True)
 qntd_assinalas_materia = qntd_assinaladas[qntd_assinaladas['Disciplina'] == materia_escolhida]
 
