@@ -72,8 +72,8 @@ st.write("Os dados dizem respeito à pontuação média obtida em cada alternati
 media_discursivas = pd.read_pickle('relatorios/dados/docentes/media_discursivas.pkl')
 st.write(pd.DataFrame({
     'A': media_discursivas['a)'],
-    'B': media_discursivas['b)'],
-    "C": media_discursivas['c)']
+    'B': media_discursivas['b)']
+    #"C": media_discursivas['c)']
     #'Nota final': str(round(media_discursivas['Nota final'],2))
 }))
 
