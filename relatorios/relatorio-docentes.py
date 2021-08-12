@@ -74,7 +74,7 @@ st.write(pd.DataFrame({
     'A': media_discursivas['a)'],
     'B': media_discursivas['b)'],
     "C": media_discursivas['c)'],
-    'Nota final': round(media_discursivas['Nota final'],2)
+    'Nota final': str(round(media_discursivas['Nota final'],2))
 }))
 
 
