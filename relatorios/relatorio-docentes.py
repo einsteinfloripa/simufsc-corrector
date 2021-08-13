@@ -197,7 +197,7 @@ st.write("Aqui você encontra a distibuição de vezes que os alunos assinalaram
 qntd_assinaladas = pd.read_pickle("relatorios/dados/docentes/qntd_assinaladas.pkl")
 qntd_assinaladas.reset_index(inplace=True)
 qntd_assinalas_materia = qntd_assinaladas[qntd_assinaladas['Disciplina'] == materia_escolhida]
-qntd_assinaladas_materia.drop_duplicates(subset=['Questão'])
+qntd_assinalas_materia.drop_duplicates(subset=['Questão'], inplace=True)
 qntd_assinalas_materia.set_index("Questão",inplace=True)
 st.write(pd.DataFrame({
     "Gabarito": qntd_assinalas_materia['alternativas_certas'].str.strip('[]'),
