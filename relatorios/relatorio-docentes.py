@@ -73,8 +73,8 @@ media_discursivas = pd.read_pickle('relatorios/dados/docentes/media_discursivas.
 st.write(pd.DataFrame({
     'A': media_discursivas['a)'],
     'B': media_discursivas['b)'],
-    "C": media_discursivas['c)'],
-    'Nota final': media_discursivas['Nota final']
+    "C": media_discursivas['c)'].astype(str),
+    'Nota final': media_discursivas['Nota final'].astype(str)
 }))
 
 
@@ -197,7 +197,7 @@ st.write("Aqui você encontra a distibuição de vezes que os alunos assinalaram
 qntd_assinaladas = pd.read_pickle("relatorios/dados/docentes/qntd_assinaladas.pkl")
 qntd_assinaladas.reset_index(inplace=True)
 qntd_assinalas_materia = qntd_assinaladas[qntd_assinaladas['Disciplina'] == materia_escolhida]
-
+qntd_assinaladas_materia.drop_duplicates(subset=['Questão'])
 qntd_assinalas_materia.set_index("Questão",inplace=True)
 st.write(pd.DataFrame({
     "Gabarito": qntd_assinalas_materia['alternativas_certas'].str.strip('[]'),
