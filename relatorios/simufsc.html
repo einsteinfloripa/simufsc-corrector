@@ -87,7 +87,11 @@
         border-radius: 20px;
       }
       table {
+        background-color: #353F70;
         overflow: hidden;
+        width: 99%;
+        margin: 0.5%;
+        border-radius: 20px;
       }
       caption {
         font-size: 2em;
@@ -112,6 +116,29 @@
         font-size: 1.4em;
         font-weight: bold;
       }
+      #subjects .col.s6 > span {
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+      #discursivas span {
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+      #discursivas table > thead th:nth-child(1) {
+        width: 10%;
+      }
+      #discursivas table > thead th:nth-child(2) {
+        width: 10%;
+      }
+      #discursivas table > thead th:nth-child(3) {
+        width: 10%;
+      }
+      #discursivas table > thead th:nth-child(4) {
+        width: 10%;
+      }
+      ##discursivas table > thead th:nth-child(5) {
+        width: 50%;
+      }
     </style>
     <title>{{nome | safe}}</title>
   </head>
@@ -127,9 +154,12 @@
           <br />
           Esta é a correção do seu SIMUFSC. Aqui você confere sua porcentagem de
           acerto em cada matéria e a correção de cada questão. Bons estudos!
+          <br />
+            A primeira seção apresenta os resultados gerais de todos os três dias de prova. Depois você encontra as notas obtidas em cada matéria e em cada questão. Caso você tenha gabaritado a questão, a linha da tabela ficará verde, caso você tenha zerado, a linha fica vermelha. Ao fim, você encontra suas notas e comentários a respeito da Redação e das Questões Discursivas.
+          
+
         </p>
       </div>
-      <hr />
       <hr />
       <div id="subjects" class="row">
         <div class="col s12">
@@ -160,35 +190,39 @@
               {{m.df | safe}}
             </tbody>
           </table>
+          
+        <hr />
         </div>
         {% endfor %}
       </div>
 ​
-      <div class="col s12">
-        <table></table>
-      </div>
+    <div class="col s12">
       <div id="subjects" class="row">
-        <div class="col s6">
+        <div class="col s12">
           <caption>
-            Redação
+            <span>Redação</span>
           </caption>
           <table>
             <tbody>
               {{redacao | safe}}
             </tbody>
           </table>
+          
+        <hr />
         </div>
-        <div class="col s6">
-          <caption>
-            Questões discursivas
-          </caption>
-          <table>
-            <tbody>
-              {{discursivas | safe}}
-            </tbody>
-          </table>
+      <div id="discursivas">
+            <caption>
+              <span>Questões discursivas</span>
+            </caption>
+            <table>
+              <tbody>
+                {{discursivas | safe}}
+              </tbody>
+            </table>
         </div>
+        
       </div>
+    </div>
     </div>
   </body>
 </html>

@@ -72,9 +72,9 @@ st.write("Os dados dizem respeito à pontuação média obtida em cada alternati
 media_discursivas = pd.read_pickle('relatorios/dados/docentes/media_discursivas.pkl')
 st.write(pd.DataFrame({
     'A': media_discursivas['a)'],
-    'B': media_discursivas['b)']
-    #"C": media_discursivas['c)']
-    #'Nota final': str(round(media_discursivas['Nota final'],2))
+    'B': media_discursivas['b)'],
+    "C": media_discursivas['c)'],
+    'Nota final': media_discursivas['Nota final']
 }))
 
 
@@ -118,8 +118,7 @@ st.write(pd.DataFrame({
 media_acerto_questao = pd.read_pickle('relatorios/dados/docentes/media_acerto_questao.pkl')
 
 st.subheader("**2.1   Média de acertos por questao**")
-st.write("Nesta seção são discretizados os acertos por questão")
-st.markdown("Como foram aplicadas duas provas com duas ordens de questões diferentes, há a possibilidade de os dados de uma mesma questão estarem separados em duas partes.")
+st.write("Nesta seção são discretizados os acertos por questão.")
 media_acerto_questao = media_acerto_questao.reset_index()
 questao_materia_escolhida = media_acerto_questao[(media_acerto_questao['Disciplina'] == materia_escolhida)]
 
