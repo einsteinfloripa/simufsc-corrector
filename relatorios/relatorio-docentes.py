@@ -117,7 +117,7 @@ st.write(pd.DataFrame({
 # #  tem o total de acertos, total de alunos que responderam e média de acerto
 media_acerto_questao = pd.read_pickle('relatorios/dados/docentes/media_acerto_questao.pkl')
 
-st.subheader("**2.1   Média de acertos por questao**")
+st.subheader("**2.1   Média de acertos por questão**")
 st.write("Nesta seção são discretizados os acertos por questão.")
 media_acerto_questao = media_acerto_questao.reset_index()
 questao_materia_escolhida = media_acerto_questao[(media_acerto_questao['Disciplina'] == materia_escolhida)]
@@ -168,6 +168,7 @@ st.write(pd.DataFrame({
 }))
 
 
+st.write("*Os alunos que não responderam à questão foram desconsiderados nestas tabelas, logo, é possível que as questões tenham o número de total de respostas diferentes entre si.*")
 
 # analise dos acertos por dificuldade
 media_por_dificuldade = pd.read_pickle('relatorios/dados/docentes/media_por_dificuldade.pkl')
@@ -210,5 +211,21 @@ st.write(pd.DataFrame({
     '64': qntd_assinalas_materia['64']
 }))
 
-# destrinchando as zonas de pontuação
+st.write("A tabela a seguir apresenta os mesmos dados que a tabela acima, mas em termos percentuais.")
 
+qntd_assinaladas_p = pd.read_pickle("relatorios/dados/docentes/qntd_assinaladas_p.pkl")
+qntd_assinaladas_p.reset_index(inplace=True)
+qntd_assinalas_materia_p = qntd_assinaladas_p[qntd_assinaladas_p['Disciplina'] == materia_escolhida]
+qntd_assinalas_materia_p.drop_duplicates(subset=['Questão'], inplace=True)
+qntd_assinalas_materia_p.set_index("Questão",inplace=True)
+st.write(pd.DataFrame({
+    "Gabarito": qntd_assinalas_materia_p['alternativas_certas'].str.strip('[]'),
+    "1": qntd_assinalas_materia_p['1'],
+    '2': qntd_assinalas_materia_p['2'],
+    '4': qntd_assinalas_materia_p['4'],
+    "8": qntd_assinalas_materia_p['8'],
+    '16': qntd_assinalas_materia_p['16'],
+    '32': qntd_assinalas_materia_p['32'],
+    '64': qntd_assinalas_materia_p['64']
+}))
+# destrinchando as zonas de pontuação
