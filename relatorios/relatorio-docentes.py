@@ -14,6 +14,8 @@ st.write("Façam bom uso!")
 
 st.header("**1. Dados sobre a Prova Geral**")
 
+
+st.markdown("**A média de pontuação obtida na prova objetiva foi de 0,39 por questão. Sendo que 50% das respostas tiveram pontuação abaixo de 0,5; 25% das respostas com pontução entre 0,5 e 0,8; e 25% das respostas tiveram pontuação entre 0,8 e 1.**")
 st.subheader("**1.1 Dados sobre as Questões Objetivas**")
 
 # media e % das objetivas 
@@ -132,6 +134,7 @@ st.write(pd.DataFrame({
     "Assunto": questao_materia_escolhida['TEMA'],
     "Dificuldade": questao_materia_escolhida['NÍVEL'],
     "Média Acertos(em %)": questao_materia_escolhida['Média']*100,
+    "Desvio Padrão": questao_materia_escolhida['Desvio Padrão']*100,
     "Tempo Médio(minutos)": questao_materia_escolhida["tempo_no_exercicio(s)"]/60
 }))
 
@@ -164,7 +167,8 @@ st.subheader("**2.2   Média de acertos por assunto**")
 st.write(pd.DataFrame({
     "Total Acertos": assuntos_materia_escolhida['Total Acertos'],
     'Total Respostas': assuntos_materia_escolhida['Total Respostas'],
-    'Média (em %)': round(assuntos_materia_escolhida['Média']*100,3)
+    'Média (em %)': round(assuntos_materia_escolhida['Média']*100,3),
+    'Desvio Padrão': round(assuntos_materia_escolhida['Desvio Padrão']*100,3)
 }))
 
 
@@ -185,7 +189,8 @@ dificuldade_materia_escolhida.set_index('NÍVEL',inplace=True)
 st.write(pd.DataFrame({
     "Total Acertos": dificuldade_materia_escolhida['Total Acertos'],
     'Total Respostas': dificuldade_materia_escolhida['Total Respostas'],
-    'Média (em %)': round(dificuldade_materia_escolhida['Média']*100,3)		
+    'Média (em %)': round(dificuldade_materia_escolhida['Média']*100,3),
+    'Desvio Padrão': round(dificuldade_materia_escolhida['Desvio Padrão']*100,3)		
 }))
 
 
@@ -225,7 +230,7 @@ st.write(pd.DataFrame({
     '4': qntd_assinalas_materia_p['4'],
     "8": qntd_assinalas_materia_p['8'],
     '16': qntd_assinalas_materia_p['16'],
-    '32': qntd_assinalas_materia_p['32'],
-    '64': qntd_assinalas_materia_p['64']
+    '32': round(qntd_assinalas_materia_p['32'],2),
+    '64': round(qntd_assinalas_materia_p['64'],2)
 }))
 # destrinchando as zonas de pontuação
