@@ -15,9 +15,10 @@ st.write("Façam bom uso!")
 st.header("**1. Dados sobre a Prova Geral**")
 
 
-st.markdown("**A média de pontuação obtida na prova objetiva foi de 0,39 por questão. Sendo que 50% das respostas tiveram pontuação abaixo de 0,5; 25% das respostas com pontução entre 0,5 e 0,8; e 25% das respostas tiveram pontuação entre 0,8 e 1.**")
+# st.markdown("**A média de pontuação obtida na prova objetiva foi de 0,428 por questão. Sendo que 50% das respostas tiveram pontuação abaixo de 0,57; 25% das respostas com pontução entre 0,57 e 0,8; e 25% das respostas tiveram pontuação entre 0,8 e 1.**")
 st.subheader("**1.1 Dados sobre as Questões Objetivas**")
 
+st.markdown("A média de pontuação total da prova objetiva foi de 43,1% e o desvio padrão foi 0,39")
 # media e % das objetivas 
 media_acerto_materia = pd.read_pickle('relatorios/dados/docentes/media_acerto_materia.pkl')
 #media_acertos_obj = media_acerto_materia['Correção'].mean()
@@ -172,7 +173,6 @@ st.write(pd.DataFrame({
 }))
 
 
-st.write("*Os alunos que não responderam à questão foram desconsiderados nestas tabelas, logo, é possível que as questões tenham o número de total de respostas diferentes entre si.*")
 
 # analise dos acertos por dificuldade
 media_por_dificuldade = pd.read_pickle('relatorios/dados/docentes/media_por_dificuldade.pkl')
