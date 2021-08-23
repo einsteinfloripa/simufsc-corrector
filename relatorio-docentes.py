@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import PIL
+# import matplotlib.pyplot as plt
 
 st.title('Relatório Docentes')
 
@@ -13,6 +14,8 @@ st.write("Façam bom uso!")
 
 st.header("**1. Dados sobre a Prova Geral**")
 
+
+st.markdown("**A média de pontuação obtida na prova objetiva foi de 0,428 por questão. Sendo que 50% das respostas tiveram pontuação abaixo de 0,57; 25% das respostas com pontução entre 0,57 e 0,8; e 25% das respostas tiveram pontuação entre 0,8 e 1.**")
 st.subheader("**1.1 Dados sobre as Questões Objetivas**")
 
 # media e % das objetivas 
@@ -54,22 +57,36 @@ st.write("Passando o mouse por cima do gráfico você pode identificar qual é a
 
 # media e % da redação
 
-media_redacao = 0 # pd.read_pickle('dados-relatorio-docentes/media_redacao.pkl')
-
+media_redacao =  pd.read_pickle('relatorios/dados/docentes/media_redacao.pkl')
+print(media_redacao)
 # tabela com os dados coletados acima
 st.subheader("**1.2 Dados sobre a Redação**")
-#st.write(pd.DataFrame({
- #   'Nota Média': round(media_redacao,2)
-#}))
+st.write(pd.DataFrame({
+    'Nota Média': media_redacao['Nota']
+}))
+
+# questões discursivas
+
+
+st.subheader("**1.3 Dados sobre as Questões discursivas**")
+
+st.write("Os dados dizem respeito à pontuação média obtida em cada alternativa e na nota final.")
+media_discursivas = pd.read_pickle('relatorios/dados/docentes/media_discursivas.pkl')
+st.write(pd.DataFrame({
+    'A': media_discursivas['a)'],
+    'B': media_discursivas['b)'],
+    "C": media_discursivas['c)'].astype(str),
+    'Nota final': media_discursivas['Nota final'].astype(str)
+}))
 
 
 # tabela com a colocação dos alunos
 
 colocacao = pd.read_pickle('relatorios/dados/docentes/colocacao.pkl')
-st.subheader("**1.3   Colocação dos alunos do Einstein**")
+st.subheader("**1.4   Colocação dos alunos do Einstein**")
 colocacao.set_index('Colocação',inplace=True)
 st.write(pd.DataFrame({
-    'Nome': colocacao['aluno_nome'],
+    'Nome': colocacao['aluno_login'],
     'Pontos': colocacao['Pontuação'],
     "Porcentagem de Acerto": colocacao['% de acerto']
 }))
@@ -102,9 +119,8 @@ st.write(pd.DataFrame({
 # #  tem o total de acertos, total de alunos que responderam e média de acerto
 media_acerto_questao = pd.read_pickle('relatorios/dados/docentes/media_acerto_questao.pkl')
 
-st.subheader("**2.1   Média de acertos por questao**")
-st.write("Nesta seção são discretizados os acertos por questão")
-st.markdown("Como foram aplicadas duas provas com duas ordens de questões diferentes, há a possibilidade de os dados de uma mesma questão estarem separados em duas partes.")
+st.subheader("**2.1   Média de acertos por questão**")
+st.write("Nesta seção são discretizados os acertos por questão.")
 media_acerto_questao = media_acerto_questao.reset_index()
 questao_materia_escolhida = media_acerto_questao[(media_acerto_questao['Disciplina'] == materia_escolhida)]
 
@@ -112,10 +128,13 @@ questao_materia_escolhida = media_acerto_questao[(media_acerto_questao['Discipli
 # para nao mostrar on indices do dataframe na tabela do streamlit, podemos mudar o indice
 questao_materia_escolhida.set_index('Questão',inplace=True)
 
+
+
 st.write(pd.DataFrame({
     "Assunto": questao_materia_escolhida['TEMA'],
     "Dificuldade": questao_materia_escolhida['NÍVEL'],
-    "Total Acertos": questao_materia_escolhida['Pontuação total'],
+    "Média Acertos(em %)": questao_materia_escolhida['Média']*100,
+    "Desvio Padrão": questao_materia_escolhida['Desvio Padrão']*100,
     "Tempo Médio(minutos)": questao_materia_escolhida["tempo_no_exercicio(s)"]/60
 }))
 
@@ -147,11 +166,13 @@ st.subheader("**2.2   Média de acertos por assunto**")
 
 st.write(pd.DataFrame({
     "Total Acertos": assuntos_materia_escolhida['Total Acertos'],
-    #'Total Respostas': assuntos_materia_escolhida['Total Respostas'],
-    'Média (em %)': round(assuntos_materia_escolhida['Média']*100,3)
+    'Total Respostas': assuntos_materia_escolhida['Total Respostas'],
+    'Média (em %)': round(assuntos_materia_escolhida['Média']*100,3),
+    'Desvio Padrão': round(assuntos_materia_escolhida['Desvio Padrão']*100,3)
 }))
 
 
+st.write("*Os alunos que não responderam à questão foram desconsiderados nestas tabelas, logo, é possível que as questões tenham o número de total de respostas diferentes entre si.*")
 
 # analise dos acertos por dificuldade
 media_por_dificuldade = pd.read_pickle('relatorios/dados/docentes/media_por_dificuldade.pkl')
@@ -168,5 +189,48 @@ dificuldade_materia_escolhida.set_index('NÍVEL',inplace=True)
 st.write(pd.DataFrame({
     "Total Acertos": dificuldade_materia_escolhida['Total Acertos'],
     'Total Respostas': dificuldade_materia_escolhida['Total Respostas'],
-    'Média (em %)': round(dificuldade_materia_escolhida['Média']*100,3)		
+    'Média (em %)': round(dificuldade_materia_escolhida['Média']*100,3),
+    'Desvio Padrão': round(dificuldade_materia_escolhida['Desvio Padrão']*100,3)		
 }))
+
+
+# destrinchando as alternativas que os alunos assinalaram 
+
+st.subheader("**2.4   Distribuição das respostas dos alunos**")
+
+st.write("Aqui você encontra a distibuição de vezes que os alunos assinalaram as alternativas. Por exemplo, 14/60 significa que dos 60 alunos que responderam a questão, 14 assinalaram a alternativa como correta.")
+
+qntd_assinaladas = pd.read_pickle("relatorios/dados/docentes/qntd_assinaladas.pkl")
+qntd_assinaladas.reset_index(inplace=True)
+qntd_assinalas_materia = qntd_assinaladas[qntd_assinaladas['Disciplina'] == materia_escolhida]
+qntd_assinalas_materia.drop_duplicates(subset=['Questão'], inplace=True)
+qntd_assinalas_materia.set_index("Questão",inplace=True)
+st.write(pd.DataFrame({
+    "Gabarito": qntd_assinalas_materia['alternativas_certas'].str.strip('[]'),
+    "1": qntd_assinalas_materia['1'],
+    '2': qntd_assinalas_materia['2'],
+    '4': qntd_assinalas_materia['4'],
+    "8": qntd_assinalas_materia['8'],
+    '16': qntd_assinalas_materia['16'],
+    '32': qntd_assinalas_materia['32'],
+    '64': qntd_assinalas_materia['64']
+}))
+
+st.write("A tabela a seguir apresenta os mesmos dados que a tabela acima, mas em termos percentuais.")
+
+qntd_assinaladas_p = pd.read_pickle("relatorios/dados/docentes/qntd_assinaladas_p.pkl")
+qntd_assinaladas_p.reset_index(inplace=True)
+qntd_assinalas_materia_p = qntd_assinaladas_p[qntd_assinaladas_p['Disciplina'] == materia_escolhida]
+qntd_assinalas_materia_p.drop_duplicates(subset=['Questão'], inplace=True)
+qntd_assinalas_materia_p.set_index("Questão",inplace=True)
+st.write(pd.DataFrame({
+    "Gabarito": qntd_assinalas_materia_p['alternativas_certas'].str.strip('[]'),
+    "1": qntd_assinalas_materia_p['1'],
+    '2': qntd_assinalas_materia_p['2'],
+    '4': qntd_assinalas_materia_p['4'],
+    "8": qntd_assinalas_materia_p['8'],
+    '16': qntd_assinalas_materia_p['16'],
+    '32': round(qntd_assinalas_materia_p['32'],2),
+    '64': round(qntd_assinalas_materia_p['64'],2)
+}))
+# destrinchando as zonas de pontuação
